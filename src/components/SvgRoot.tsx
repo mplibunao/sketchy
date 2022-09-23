@@ -1,25 +1,19 @@
 import { atom, useAtom } from 'jotai'
 import { Point } from '../types'
-import { dotsAtom, SvgDots } from './SvgDots'
-import { useEffect, useRef } from 'react'
+import { commitDotsAtom, dotsAtom, SvgDots } from './SvgDots'
+import { SvgShape } from './SvgShape'
 
 const drawingAtom = atom(false)
 
-export const useCommitCount = () => {
-	const commitCountRef = useRef(0)
-
-	useEffect(() => {
-		commitCountRef.current += 1
-	}, [])
-	return commitCountRef.current
-}
-
-const handleMouseDownAtom = atom(null, (get, set, newDot: Point) => {
+const handleMouseDownAtom = atom(null, (_get, set, newDot: Point) => {
 	set(drawingAtom, true)
 	set(dotsAtom, (dots) => [...dots, newDot])
 })
 
-const handleMouseUpAtom = atom(null, (get, set) => set(drawingAtom, false))
+const handleMouseUpAtom = atom(null, (_get, set) => {
+	set(drawingAtom, false)
+	set(commitDotsAtom, null)
+})
 
 const handleMouseMoveAtom = atom(null, (get, set, newDot: Point) => {
 	if (get(drawingAtom)) {
@@ -36,7 +30,9 @@ export const SvgRoot = () => {
 			width='100%'
 			height='100%'
 			viewBox='0 0 100% 100%'
+			preserveAspectRatio='none'
 			onMouseDown={(e) => {
+				console.log('mouse down', e)
 				handleMouseDown([e.clientX, e.clientY])
 			}}
 			onMouseUp={handleMouseUp}
@@ -45,9 +41,7 @@ export const SvgRoot = () => {
 			}}
 		>
 			<rect width='100%' height='100%' fill='#eee' />
-			<text x='3' y='12' fontSize='12px'>
-				Commits: {useCommitCount()}
-			</text>
+			<SvgShape />
 			<SvgDots />
 		</svg>
 	)
