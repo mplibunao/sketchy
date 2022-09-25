@@ -1,5 +1,5 @@
 import { atom, useAtom } from 'jotai'
-import { Point } from '../types'
+import { Point, ShapeAtom } from '../types'
 
 const pointsToPath = (points: readonly Point[]) => {
 	return points.reduce((acc, point, index) => {
@@ -10,16 +10,10 @@ const pointsToPath = (points: readonly Point[]) => {
 	}, '')
 }
 
-const shapeAtom = atom({ path: '' })
+export const createShapeAtom = (points: readonly Point[]) =>
+	atom({ path: pointsToPath(points) })
 
-export const addShapeAtom = atom(
-	null,
-	(_get, set, points: readonly Point[]) => {
-		set(shapeAtom, { path: pointsToPath(points) })
-	}
-)
-
-export const SvgShape = () => {
+export const SvgShape = ({ shapeAtom }: { shapeAtom: ShapeAtom }) => {
 	const [shape] = useAtom(shapeAtom)
 	return (
 		<g>

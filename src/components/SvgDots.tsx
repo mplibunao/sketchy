@@ -1,6 +1,6 @@
 import { atom, useAtom } from 'jotai'
 import { Point } from '../types'
-import { addShapeAtom } from './SvgShape'
+import { addShapeAtom } from './SvgShapes'
 
 export const dotsAtom = atom<readonly Point[]>([])
 

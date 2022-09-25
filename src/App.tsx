@@ -21,11 +21,6 @@ function App() {
 			<Stats />
 		</Layout>
 	)
-	return (
-		<Layout>
-			<SvgRoot />
-		</Layout>
-	)
 }
 
 export default App
