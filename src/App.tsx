@@ -1,4 +1,4 @@
-import { atom, useAtom } from 'jotai'
+import { atom, Provider, useAtom } from 'jotai'
 import { Controls } from './components/Controls'
 import { Layout } from './components/Layout'
 import { dotsAtom } from './components/SvgDots'
@@ -20,19 +20,23 @@ function App() {
 	useAtomsDevtools('App')
 	return (
 		<Layout>
-			<SvgRoot />
-			<div className='controls'>
-				<Controls />
-				<Stats />
-			</div>
+			<Provider>
+				<SvgRoot />
+				<div className='controls'>
+					<Controls />
+					<Stats />
+				</div>
+			</Provider>
 
 			<hr />
 
-			<SvgRoot />
-			<div className='controls'>
-				<Controls />
-				<Stats />
-			</div>
+			<Provider>
+				<SvgRoot />
+				<div className='controls'>
+					<Controls />
+					<Stats />
+				</div>
+			</Provider>
 		</Layout>
 	)
 }
