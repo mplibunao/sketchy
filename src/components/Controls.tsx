@@ -1,4 +1,5 @@
 import { useAtom } from 'jotai'
+import { undoAtom } from './history'
 import { setColorAtom } from './selection'
 import { deleteSelectedShapeAtom } from './SvgShapes'
 
@@ -12,6 +13,7 @@ const colors = [
 export const Controls = () => {
 	const [currentColor, setColor] = useAtom(setColorAtom)
 	const [isSelected, deleteShape] = useAtom(deleteSelectedShapeAtom)
+	const [hasHistory, undo] = useAtom(undoAtom)
 
 	return (
 		<div>
@@ -34,6 +36,14 @@ export const Controls = () => {
 				disabled={!isSelected}
 			>
 				Delete
+			</button>
+			<button
+				type='button'
+				className={`inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+				onClick={undo}
+				disabled={!hasHistory}
+			>
+				Undo
 			</button>
 		</div>
 	)
