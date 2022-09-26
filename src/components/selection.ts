@@ -12,9 +12,20 @@ export const selectedAtomCreator = (shapeAtom: ShapeAtom) => {
 	return selectedAtom
 }
 
-export const setColorAtom = atom(null, (get, set, color: string) => {
-	const selectedShapeAtom = get(selectedShapeAtomAtom)
-	if (selectedShapeAtom) {
-		set(selectedShapeAtom, (prev) => ({ ...prev, color }))
+export const setColorAtom = atom(
+	(get) => {
+		const selectedShapeAtom = get(selectedShapeAtomAtom)
+
+		if (selectedShapeAtom) {
+			return get(selectedShapeAtom).color || ''
+		}
+
+		return null
+	},
+	(get, set, color: string) => {
+		const selectedShapeAtom = get(selectedShapeAtomAtom)
+		if (selectedShapeAtom) {
+			set(selectedShapeAtom, (prev) => ({ ...prev, color }))
+		}
 	}
-})
+)
