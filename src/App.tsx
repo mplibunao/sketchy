@@ -25,6 +25,14 @@ function App() {
 				<Controls />
 				<Stats />
 			</div>
+
+			<hr />
+
+			<SvgRoot />
+			<div className='controls'>
+				<Controls />
+				<Stats />
+			</div>
 		</Layout>
 	)
 }

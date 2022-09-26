@@ -25,11 +25,11 @@ export const SvgRoot = () => {
 	const [, handleMouseMove] = useAtom(handleMouseMoveAtom)
 	const [, handleMouseDown] = useAtom(handleMouseDownAtom)
 
-	const height = vh(85)
+	const height = vh((100 - 15 * 2) / 2)
 	const width = vw(100)
 	//
 	return (
-		<div style={{ height: '85vh' }}>
+		<div style={{ height }}>
 			<svg
 				width={`${width}`}
 				height={`${height}`}
@@ -39,7 +39,8 @@ export const SvgRoot = () => {
 				}}
 				onMouseUp={handleMouseUp}
 				onMouseMove={(e) => {
-					handleMouseMove([e.clientX, e.clientY])
+					const { x, y } = e.currentTarget.getBoundingClientRect()
+					handleMouseMove([e.clientX - x, e.clientY - y])
 				}}
 			>
 				<rect width={`${width}`} height={`${height}`} fill='#eee' />
