@@ -24,22 +24,41 @@ export const SvgRoot = () => {
 	const [, handleMouseUp] = useAtom(handleMouseUpAtom)
 	const [, handleMouseMove] = useAtom(handleMouseMoveAtom)
 	const [, handleMouseDown] = useAtom(handleMouseDownAtom)
+
+	const height = vh(85)
+	const width = vw(100)
+	//
 	return (
-		<svg
-			width='100%'
-			height='100%'
-			viewBox='0 0 100% 100%'
-			onMouseDown={(_e) => {
-				handleMouseDown()
-			}}
-			onMouseUp={handleMouseUp}
-			onMouseMove={(e) => {
-				handleMouseMove([e.clientX, e.clientY])
-			}}
-		>
-			<rect width='100%' height='100%' fill='#eee' />
-			<SvgShapes />
-			<SvgDots />
-		</svg>
+		<div style={{ height: '85vh' }}>
+			<svg
+				width={`${width}`}
+				height={`${height}`}
+				viewBox={`0 0 ${width} ${height}`}
+				onMouseDown={(_e) => {
+					handleMouseDown()
+				}}
+				onMouseUp={handleMouseUp}
+				onMouseMove={(e) => {
+					handleMouseMove([e.clientX, e.clientY])
+				}}
+			>
+				<rect width={`${width}`} height={`${height}`} fill='#eee' />
+				<SvgShapes />
+				<SvgDots />
+			</svg>
+		</div>
 	)
+}
+
+function vh(percent: number) {
+	var h = Math.max(
+		document.documentElement.clientHeight,
+		window.innerHeight || 0
+	)
+	return (percent * h) / 100
+}
+
+function vw(percent: number) {
+	var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+	return (percent * w) / 100
 }

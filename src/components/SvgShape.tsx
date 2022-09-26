@@ -27,7 +27,7 @@ export const SvgShape = ({ shapeAtom }: { shapeAtom: ShapeAtom }) => {
 				d={shape.path}
 				opacity={selected ? '0.3' : '0'}
 				fill='none'
-				stroke='red'
+				stroke={shape.color || 'black'}
 				strokeWidth='12'
 			/>
 			<path d={shape.path} fill='none' stroke='black' strokeWidth='3' />

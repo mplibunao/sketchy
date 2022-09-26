@@ -1,4 +1,5 @@
 import { atom, useAtom } from 'jotai'
+import { Controls } from './components/Controls'
 import { Layout } from './components/Layout'
 import { dotsAtom } from './components/SvgDots'
 import { SvgRoot } from './components/SvgRoot'
@@ -18,7 +19,10 @@ function App() {
 	return (
 		<Layout>
 			<SvgRoot />
-			<Stats />
+			<div className='controls'>
+				<Controls />
+				<Stats />
+			</div>
 		</Layout>
 	)
 }
