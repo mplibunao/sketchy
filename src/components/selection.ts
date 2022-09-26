@@ -1,5 +1,6 @@
 import { atom } from 'jotai'
 import { ShapeAtom } from '../types'
+import { saveHistoryAtom } from './history'
 
 export const selectedShapeAtomAtom = atom<ShapeAtom | null>(null)
 
@@ -25,6 +26,7 @@ export const setColorAtom = atom(
 	(get, set, color: string) => {
 		const selectedShapeAtom = get(selectedShapeAtomAtom)
 		if (selectedShapeAtom) {
+			set(saveHistoryAtom, null)
 			set(selectedShapeAtom, (prev) => ({ ...prev, color }))
 		}
 	}
